@@ -2,6 +2,8 @@
     <div class="grayDivFile">
         <div class="font">Filemanager</div>
         <u class="uuu">usun dane o plikach z tablicy</u>
+        <div class="sth">Icons made by <a class="fonts" href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a>
+         from <a class="fonts" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
     </div>
     <div style="float: left ">
         <table class="table1">
@@ -15,16 +17,9 @@
                 <th>-</th>
                 <th>-</th>
             </tr>
-            <tr>
-                <th>id-zmienna</th>
-                <th>obraz-zmienna</th>
-                <th>name-zmienna</th>
-                <th>size-zmienna</th>
-                <th>type-zmienna</th>
-                <th>--zmienna</th>
-                <th>--zmienna</th>
-                <th>--zmienna</th>
-            </tr>
+            {{#each files}}
+            {{>table}}
+            {{/each}}
         </table>
     </div>
 </div>
