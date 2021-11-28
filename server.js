@@ -59,7 +59,8 @@ app.post('/handleUpload', function (req, res) {
             }else if(files.uploadFile.type == 'text/css'){
                 img = 'css.png'
             }
-            let dictWithData = { id: id, img: img, name: files.uploadFile.name, size: files.uploadFile.size, type: files.uploadFile.type, path: files.uploadFile.path, date: Date.now()}
+            let currTime = Date.now()
+            let dictWithData = { id: id, img: img, name: files.uploadFile.name, size: files.uploadFile.size, type: files.uploadFile.type, path: files.uploadFile.path, date: currTime}
             dict.files.push(dictWithData)
             id += 1
         }else if(howManyF == 'some'){
@@ -80,14 +81,15 @@ app.post('/handleUpload', function (req, res) {
                 }else if(files.uploadFile[myVar].type == 'text/css'){
                     img = 'css.png'
                 }
-                let dictWithData = { id: id, img: img, name: files.uploadFile[myVar].name, size: files.uploadFile[myVar].size, type: files.uploadFile[myVar].type, path: files.uploadFile[myVar].path, date: Date.now()}
+                let currTime = Date.now()
+                let dictWithData = { id: id, img: img, name: files.uploadFile[myVar].name, size: files.uploadFile[myVar].size, type: files.uploadFile[myVar].type, path: files.uploadFile[myVar].path, date: currTime}
                 dict.files.push(dictWithData)
                 id += 1
             }
         }
 
 
-
+        console.log(Date.now())
         console.log("----- przesłane pola z formularza ------");
 
         console.log(fields);
@@ -100,7 +102,7 @@ app.post('/handleUpload', function (req, res) {
     });
 });
 
-app.post("/deleteFiles/:index", function (req, res) {
+app.post("/del/:index", function (req, res) {
     let index = req.params.index;
     for (const myVar in dict.files) {
         if (dict.files[myVar].id == index) {
@@ -117,19 +119,19 @@ app.post("/download/:index", function (req, res) {
         }
     }
 })
-app.post("/deleteAll", function (req, res) {
+app.post("/delAll", function (req, res) {
     dict.files.splice(0, dict.files.length);
     res.redirect("/filemanager");
 })
 app.post("/info/:index", function (req, res) {
     let index = req.params.index;
-    let infoContext = {};
-    for (const myVar in context.files) {
-        if (context.files[myVar].id == index) {
-            infoContext = context.files[myVar];
+    let infoDict = {};
+    for (const myVar in dict.files) {
+        if (dict.files[myVar].id == index) {
+            infoDict = dict.files[myVar];
         }
     }
-    res.render('info.hbs', infoContext)
+    res.render('info.hbs', infoDict)
 })
 
 
